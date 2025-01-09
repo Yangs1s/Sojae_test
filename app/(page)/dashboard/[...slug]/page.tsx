@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import EstimateRequestView from "@/app/_component/containers/dashboard/EstimateRequestView";
 import EstimateProposeView from "@/app/_component/containers/dashboard/EstimateProposeView";
@@ -12,13 +12,17 @@ import AdminMaterialAddView from "@/app/_component/containers/dashboard/AdminMat
 import AdminMaterialProposeView from "@/app/_component/containers/dashboard/AdminMaterialProposeView";
 import AdminMaterialContractView from "@/app/_component/containers/dashboard/AdminMaterialContractView";
 import AdminMember from "@/app/_component/containers/dashboard/AdminMember";
-const Page = async ({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { type: string };
-}) => {
+
+type PageProps = {
+  params: Promise<{
+    slug: string[];
+  }>;
+  searchParams: Promise<{
+    type?: string;
+  }>;
+};
+
+const Page = async ({ params, searchParams }: PageProps) => {
   const { slug } = await params;
   const { type } = await searchParams;
   const url = slug[slug.length - 1];
@@ -53,7 +57,8 @@ const Page = async ({
       return <AdminMember />;
     }
   }
-  return returnPage();
+
+  return <Suspense>{returnPage()}</Suspense>;
 };
 
 export default Page;

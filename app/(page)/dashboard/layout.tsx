@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import MyPageSNB from "@/app/_component/containers/my/MyPageSNB";
-import { useSearchParams } from "next/navigation";
 
 // 수요자 : 대시보드 / 견적 요청 현황 / 견적 제안 현황 / 공급 소재 검색 / 소재 계약 현황
 //
@@ -48,7 +47,6 @@ const ADMIN_SIDE_TAB_MENU = [
 ];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const searchParams = useSearchParams();
   return (
     <div
       className={
@@ -58,12 +56,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         className={
           "flex web:m-auto mobile:w-auto tablet:m-auto web:mt-[144px] mobile:mt-[56px] tablet:flex-col tablet:mt-[78px] web:flex-row mobile:flex-col web:w-[1280px]  web:min-h-screen overflow-y-auto gap-10"
         }>
-        <MyPageSNB>
-          <MyPageSNB.GridTabList
-            withDrawPage={false}
-            sideTab={ADMIN_SIDE_TAB_MENU}
-          />
-        </MyPageSNB>
+        <Suspense fallback={<div>Loading...</div>}>
+          <MyPageSNB>
+            <MyPageSNB.GridTabList
+              withDrawPage={false}
+              sideTab={ADMIN_SIDE_TAB_MENU}
+            />
+          </MyPageSNB>
+        </Suspense>
         <div
           className={
             " web:w-full tablet:max-w-[1000px] mobile:w-full  overflow-hidden"

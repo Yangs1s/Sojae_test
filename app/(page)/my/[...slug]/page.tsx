@@ -13,8 +13,8 @@ const Page = async ({
   params,
   searchParams,
 }: {
-  params: { slug: string };
-  searchParams: { type: string };
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ type: string }>;
 }) => {
   const { slug } = await params;
   const { type } = await searchParams;

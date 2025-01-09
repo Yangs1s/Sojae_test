@@ -3,7 +3,7 @@ import PrivateSignUp from "@/app/_component/containers/signup/PrivateSignUp";
 import CorporationSignUp from "@/app/_component/containers/signup/CorporationSignUp";
 import CorporationInfo from "@/app/_component/containers/signup/CorporationInfo";
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
   const { slug } = await params;
   const url = slug[slug.length - 1];
   console.log(slug);

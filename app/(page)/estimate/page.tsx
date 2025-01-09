@@ -1,8 +1,13 @@
+"use client";
+
 import React from "react";
-import PostEstimate from "@/app/_component/containers/estimate/PostEstimate";
+import dynamic from "next/dynamic";
 
-const Page = () => {
+const PostEstimate = dynamic(
+  () => import("@/app/_component/containers/estimate/PostEstimate"),
+  { ssr: false }
+);
+
+export default function Page() {
   return <PostEstimate />;
-};
-
-export default Page;
+}
